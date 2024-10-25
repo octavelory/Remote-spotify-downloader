@@ -1,10 +1,7 @@
 from util.spotify import start_token_thread
 from util.download import start
-from dotenv import load_dotenv
 import threading
 import time
-
-load_dotenv()
 
 token_thread = threading.Thread(target=start_token_thread, daemon=True)
 token_thread.start()
