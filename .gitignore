@@ -1,0 +1,4 @@
+.env
+/music
+*/__pycache__/*
+/cache
