@@ -2,3 +2,5 @@
 /music
 */__pycache__/*
 /cache
+music.mp3
+modal_deployment.py
