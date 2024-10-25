@@ -1,5 +1,5 @@
 import modal
-import Remote_spotify_downloader.yank_module as yank_module
+import yank_module as yank_module
 import asyncio
 
 image = (

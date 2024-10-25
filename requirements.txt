@@ -1,5 +1,6 @@
 quart
 httpx
+dotenv
 python-dotenv
 py-deezer
 hypercorn
