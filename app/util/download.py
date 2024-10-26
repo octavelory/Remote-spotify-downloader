@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore", category=CryptographyDeprecationWarning)
 load_dotenv()
 
 arl = os.environ.get("deezer_arl")
-DOWNLOAD_DIR = "./music/"
+DOWNLOAD_DIR = ""
 
 try:
     print("Logging into Deezer...")
@@ -74,7 +74,7 @@ async def start(id):
         j = await get_deezer_track(isrc)
         print(j)
 
-        pathfile = Path(f"music/{isrc}.mp3")
+        pathfile = Path(f"{isrc}.mp3")
         if pathfile.is_file():
             print(f"[{isrc}] Already cached")
             return pathfile
