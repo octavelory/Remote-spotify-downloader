@@ -22,6 +22,7 @@ initiate_token_thread()
 async def serve_audio(id: str):
     try:
         filename = await start(id)
+        print(filename)
         return FileResponse(filename, media_type='audio/mpeg', filename=filename)
     except Exception as e:
         # Log the exception details if needed
