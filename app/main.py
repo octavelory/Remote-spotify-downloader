@@ -3,8 +3,8 @@ from fastapi.responses import FileResponse
 import threading
 import time
 
-from util.spotify import start_token_thread
-from util.download import start
+from app.util.spotify import start_token_thread
+from app.util.download import start
 
 app = FastAPI()
 
