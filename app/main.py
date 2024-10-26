@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Response
-from fastapi.responses import FileResponse
 import threading
 import time
 
@@ -23,7 +22,9 @@ async def serve_audio(id: str):
     try:
         filename = await start(id)
         print(filename)
-        return FileResponse(filename, media_type='audio/mpeg', filename=filename)
+        with open(filename, "rb") as file:
+            contents = file.read()
+        return Response(content=contents, media_type="audio/mpeg")
     except Exception as e:
         # Log the exception details if needed
         print(f"Error serving audio for ID {id}: {e}")
