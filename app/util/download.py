@@ -72,17 +72,8 @@ async def start(id):
             print("Song not found")
             return "none"
 
-        cache_file = Path(f"./cache/{isrc}.json")
-        if cache_file.is_file():
-            print(f"[{isrc}] Found data in cache")
-            with open(cache_file, 'r') as f:
-                j = json.load(f)
-        else:
-            print(f"[{isrc}] Not found in data cache, fetching from Deezer")
-            j = await get_deezer_track(isrc)
-            print(j)
-            with open(cache_file, 'w') as f:
-                json.dump(j, f)
+        j = await get_deezer_track(isrc)
+        print(j)
 
         pathfile = Path(f"./music/{isrc}.mp3")
         if pathfile.is_file():
@@ -101,45 +92,3 @@ async def start(id):
     except Exception as e:
         print(f"{e} at line {sys.exc_info()[-1].tb_lineno}")
         return "none"
-
-async def start_playlist(id):
-    folder_to_zip = f'./music/{id}/'
-    output_zip_file = f'./zip/{id}'
-    pathfile = Path(f"./zip/{id}.zip")
-    isrc = id
-
-    if pathfile.is_file():
-        print(f"[playlist] Already cached")
-        return output_zip_file + ".zip"
-
-    try:
-        playlist_isrcs = await spotify_playlist(isrc)
-    except Exception as e:
-        print("Spotify token expired or couldn't find ISRC")
-        print(e)
-        return "none"
-
-    deezer_ids = []
-    for isrc in playlist_isrcs:
-        try: # this is to stop deezer blocking requests
-            cache_file = Path(f"./cache/{isrc}.json")
-            if cache_file.is_file():
-                print(f"[{isrc}] Found in data cache")
-                with open(cache_file, 'r') as f:
-                    j = json.load(f)
-            else:
-                print(f"[{isrc}] Not found in data cache, fetching from Deezer")
-                j = await get_deezer_track(isrc)
-                with open(cache_file, 'w') as f:
-                    json.dump(j, f)
-            deezer_ids.append(str(j["id"]))
-        except Exception as e:
-            print(f"Couldn't find song on Deezer ({isrc}) {e}")
-            continue
-
-    print(f"Found {len(deezer_ids)}/{len(playlist_isrcs)} songs")
-    download_playlist(deezer_ids, id)
-    delete_lyrics(folder_to_zip)
-    zip_folder(folder_to_zip, output_zip_file)
-    delete_temporary_folder(folder_to_zip)
-    return output_zip_file + ".zip"
