@@ -16,7 +16,7 @@ warnings.filterwarnings("ignore", category=CryptographyDeprecationWarning)
 load_dotenv()
 
 arl = os.environ.get("deezer_arl")
-DOWNLOAD_DIR = ""
+DOWNLOAD_DIR = "./app"
 
 try:
     print("Logging into Deezer...")
