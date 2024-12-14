@@ -1,9 +1,8 @@
 from fastapi import FastAPI, HTTPException, Response
 import threading
 import time
-
-from app.util.spotify import start_token_thread
-from app.util.download import start
+from util.spotify import start_token_thread
+from util.download import start
 
 app = FastAPI()
 
@@ -12,7 +11,7 @@ def initiate_token_thread():
     token_thread = threading.Thread(target=start_token_thread, daemon=True)
     token_thread.start()
     print("Retrieving Spotify token...")
-    time.sleep(1)  # Adjust sleep time as necessary
+    time.sleep(1)
     print("Token retrieval initiated.")
 
 initiate_token_thread()

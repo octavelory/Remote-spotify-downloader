@@ -1,5 +1,5 @@
 .env
 /music
-/__pycache__/
+__pycache__/
 music.mp3
 modal_deployment.py
